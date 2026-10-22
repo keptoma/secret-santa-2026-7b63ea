@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=DM+Sans:wght@400;500;700&display=swap');
+@import 'tailwindcss' source('../');
+
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+body {
+  @apply m-0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+:root {
+  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Fraunces', Georgia, serif;
+  --content-width: 72rem;
+  --reading-width: 42rem;
+  --background: oklch(0.965 0.018 85);
+  --foreground: oklch(0.26 0.045 160);
+  --card: oklch(0.99 0.008 85);
+  --card-foreground: oklch(0.26 0.045 160);
+  --popover: oklch(0.99 0.008 85);
+  --popover-foreground: oklch(0.26 0.045 160);
+  --primary: oklch(0.5 0.19 25);
+  --primary-foreground: oklch(0.98 0.01 85);
+  --secondary: oklch(0.34 0.07 158);
+  --secondary-foreground: oklch(0.97 0.015 85);
+  --muted: oklch(0.925 0.025 85);
+  --muted-foreground: oklch(0.45 0.035 160);
+  --accent: oklch(0.78 0.12 80);
+  --accent-foreground: oklch(0.26 0.045 160);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0.01 85);
+  --border: oklch(0.87 0.03 85);
+  --input: oklch(0.85 0.03 85);
+  --ring: oklch(0.5 0.19 25 / 60%);
+  --chart-1: oklch(0.5 0.19 25);
+  --chart-2: oklch(0.34 0.07 158);
+  --chart-3: oklch(0.78 0.12 80);
+  --chart-4: oklch(0.6 0.1 158);
+  --chart-5: oklch(0.65 0.15 40);
+  --radius: 1rem;
+  --pine: oklch(0.27 0.055 160);
+  --pine-deep: oklch(0.21 0.045 162);
+  --gold: oklch(0.78 0.12 80);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.871 0.006 286.286);
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-display: var(--font-heading);
+  --container-content: var(--content-width);
+  --container-reading: var(--reading-width);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-pine: var(--pine);
+  --color-pine-deep: var(--pine-deep);
+  --color-gold: var(--gold);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Falling snow */
+.snowflake {
+  position: absolute;
+  top: -2rem;
+  color: oklch(1 0 0 / 0.85);
+  pointer-events: none;
+  user-select: none;
+  animation: snowfall linear infinite;
+}
+@keyframes snowfall {
+  0% {
+    transform: translate3d(0, -2rem, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(2.5rem, 110vh, 0) rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .snowflake {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Subtle diagonal ribbon pattern used on section dividers */
+.ribbon-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--primary) 0 14px,
+    var(--background) 14px 28px
+  );
+}
