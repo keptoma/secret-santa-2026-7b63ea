@@ -10,7 +10,7 @@ This document describes the project for developers and AI agents working on this
 
 - `db/schema.ts`: Drizzle schema. Tables are `participants`, `assignments` (unique `giver_id` and unique `receiver_id`), `event_state` (single row, `id = 1`, holds `registration_closed`), and `comments`. Migrations live in `netlify/database/migrations/`. After any schema change, run `npx drizzle-kit generate --name <change>`. Never edit applied migrations.
 - `src/server/santa.functions.ts`: every server function (status, register, organizer confirm, reveal/draw, comments). Server functions return `Result<T>` (`{ ok, data } | { ok: false, error }`) so the UI can show friendly messages.
-- `src/server/email.ts`: optional Resend email. It's a no-op unless `RESEND_API_KEY` and `EMAIL_FROM` are set.
+- `src/server/email.ts`: optional Gmail SMTP email (nodemailer). It's a no-op unless `GMAIL_USER` and `GMAIL_APP_PASSWORD` are set.
 - `src/lib/event.ts`: shared constants (`TOTAL_PARTICIPANTS = 16`) and client-safe types.
 - `src/components/santa/*`: page sections (hero, wishlist form, progress, draw, comments), composed in `src/routes/index.tsx`.
 

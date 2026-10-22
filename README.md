@@ -12,16 +12,16 @@ A festive, responsive single-page site for our office Secret Santa. Colleagues c
 - TanStack Start (React 19) + Tailwind CSS 4 + shadcn/ui
 - Netlify Database (managed Postgres) with Drizzle ORM. Migrations are in `netlify/database/migrations/` and are applied automatically on deploy.
 - TanStack Start server functions hold all private logic (draw, password check, email). No secrets reach the browser.
-- Optional email via [Resend](https://resend.com)
+- Optional email sent from a Gmail account
 - Hero illustration served through the Netlify Image CDN
 
 ## Configuration (Netlify → Project configuration → Environment variables)
 
-| Variable              | Required | Purpose                                                                    |
-| --------------------- | -------- | -------------------------------------------------------------------------- |
-| `ORGANIZER_PASSWORD`  | Yes      | Lets the organizer confirm that registration is complete and open the draw |
-| `RESEND_API_KEY`      | Optional | Sends the personal code on sign-up and each person's match after the draw  |
-| `EMAIL_FROM`          | Optional | Sender address for those emails, e.g. `Secret Santa <santa@yourcompany.com>` |
+| Variable             | Required | Purpose                                                                          |
+| -------------------- | -------- | -------------------------------------------------------------------------------- |
+| `ORGANIZER_PASSWORD` | Yes      | Lets the organizer confirm that registration is complete and open the draw       |
+| `GMAIL_USER`         | Optional | Gmail address that sends the sign-up code and each person's match after the draw |
+| `GMAIL_APP_PASSWORD` | Optional | Google app password for that account (not the normal Gmail password)             |
 
 To change the group size, edit `TOTAL_PARTICIPANTS` in `src/lib/event.ts`.
 
