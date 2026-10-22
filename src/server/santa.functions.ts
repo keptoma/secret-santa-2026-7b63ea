@@ -79,9 +79,9 @@ export const registerParticipant = createServerFn({ method: 'POST' })
   .handler(async ({ data }): Promise<Result<{ code: string; emailed: boolean }>> => {
     const status = await readStatus()
     if (status.registrationClosed)
-      return { ok: false, error: 'Registration is closed — the draw is locked in.' }
+      return { ok: false, error: 'Գրանցումը փակ է․ վիճակահանությունն արդեն ամրագրված է։' }
     if (status.registered >= TOTAL_PARTICIPANTS)
-      return { ok: false, error: `All ${TOTAL_PARTICIPANTS} spots are already taken.` }
+      return { ok: false, error: `Բոլոր ${TOTAL_PARTICIPANTS} տեղերն արդեն զբաղված են։` }
 
     const key = nameKey(data.name)
     const existing = await db
@@ -93,8 +93,8 @@ export const registerParticipant = createServerFn({ method: 'POST' })
       return {
         ok: false,
         error: sameEmail
-          ? 'This email is already registered. Each colleague can sign up once.'
-          : 'Someone with this name is already registered. Each colleague can sign up once.',
+          ? 'Այս էլ. հասցեն արդեն գրանցված է։ Յուրաքանչյուր գործընկեր կարող է գրանցվել մեկ անգամ։'
+          : 'Այս անունով մասնակից արդեն գրանցված է։ Յուրաքանչյուր գործընկեր կարող է գրանցվել մեկ անգամ։',
       }
     }
 
@@ -108,13 +108,13 @@ export const registerParticipant = createServerFn({ method: 'POST' })
       })
     } catch {
       // Unique constraint lost a race with a simultaneous registration.
-      return { ok: false, error: 'This name or email is already registered.' }
+      return { ok: false, error: 'Այս անունը կամ էլ. հասցեն արդեն գրանցված է։' }
     }
 
     const emailed = await sendEmail(
       data.email,
-      `You're in! ${EVENT_NAME} 🎄`,
-      `Hi ${data.name},\n\nYour wishlist for ${EVENT_NAME} is saved.\n\nYour personal Secret Santa code is: ${code}\n\nKeep it safe — you'll need it with your email to reveal who you're buying a gift for once the draw opens.\n\nHo ho ho! 🎁`,
+      `Դուք գրանցված եք․ ${EVENT_NAME} 🎄`,
+      `Բարև ${data.name},\n\nՔո ցանկությունների ցանկը հաջողությամբ հասել է էլֆերի գաղտնի շտաբ։ 🧝‍♂️✅\n\nԳրանցումն ավարտված է։ Այժմ մնում է սպասել վիճակահանությանը և հուսալ, որ քո գաղտնի Ձմեռ պապը մտքեր կարդալու ունակություն ունի։ 😂🎁\n\nՀիշի՛ր՝ գաղտնիքները չենք բացահայտում, գործընկերներին չենք կասկածում, իսկ նվերների հետ կապված կասկածելի վարքագիծը խստիվ խրախուսվում է։ 👀🤫\n\nՔո անձնական կոդն է՝ ${code}\nՊահի՛ր այն․ վիճակահանությունից հետո էլ. հասցեի հետ միասին պետք կգա՝ իմանալու, թե ում ես նվեր տալու։`,
     )
     return { ok: true, data: { code, emailed } }
   })
@@ -124,15 +124,15 @@ export const confirmRegistration = createServerFn({ method: 'POST' })
   .handler(async ({ data }): Promise<Result<EventStatus>> => {
     const expected = process.env.ORGANIZER_PASSWORD
     if (!expected)
-      return { ok: false, error: 'The organizer password has not been set up for this site yet.' }
+      return { ok: false, error: 'Կազմակերպչի գաղտնաբառը դեռ կարգավորված չէ այս կայքի համար։' }
     if (!safeEqual(data.password, expected))
-      return { ok: false, error: 'That organizer password is not correct.' }
+      return { ok: false, error: 'Կազմակերպչի գաղտնաբառը սխալ է։' }
 
     const status = await readStatus()
     if (status.registered < TOTAL_PARTICIPANTS)
       return {
         ok: false,
-        error: `Only ${status.registered} of ${TOTAL_PARTICIPANTS} colleagues have registered so far.`,
+        error: `Առայժմ գրանցվել է ${TOTAL_PARTICIPANTS}-ից միայն ${status.registered} գործընկեր։`,
       }
 
     await db
@@ -175,13 +175,13 @@ async function ensureDraw() {
       const r = people[(i + 1) % people.length]
       return sendEmail(
         giver.email,
-        `Your ${EVENT_NAME} recipient 🎁`,
-        `Hi ${giver.name},\n\nYou are the Secret Santa for: ${r.name}\n\nTheir wishlist:\n${r.wishlist}` +
-          (r.links ? `\n\nLinks:\n${r.links}` : '') +
-          (r.dislikes ? `\n\nPlease avoid:\n${r.dislikes}` : '') +
-          (r.hobbies ? `\n\nHobbies & interests:\n${r.hobbies}` : '') +
-          (r.sizes ? `\n\nSizes:\n${r.sizes}` : '') +
-          `\n\nShh… keep it secret! 🤫`,
+        `Ձեր նվերի ստացողը․ ${EVENT_NAME} 🎁`,
+        `Բարև ${giver.name},\n\nԴուք Գաղտնի Ձմեռ Պապն եք՝ ${r.name}-ի համար\n\nՆրա ցանկությունները՝\n${r.wishlist}` +
+          (r.links ? `\n\nՀղումներ՝\n${r.links}` : '') +
+          (r.dislikes ? `\n\nԽնդրում է խուսափել՝\n${r.dislikes}` : '') +
+          (r.hobbies ? `\n\nՀոբբիներ և հետաքրքրություններ՝\n${r.hobbies}` : '') +
+          (r.sizes ? `\n\nՉափսեր՝\n${r.sizes}` : '') +
+          `\n\nՇշշ… պահեք գաղտնի։ 🤫`,
       )
     }),
   )
@@ -197,14 +197,14 @@ export const revealRecipient = createServerFn({ method: 'POST' })
   .handler(async ({ data }): Promise<Result<RecipientCard>> => {
     const status = await readStatus()
     if (!status.registrationClosed || status.registered < TOTAL_PARTICIPANTS)
-      return { ok: false, error: 'The draw opens once everyone is registered and the organizer confirms.' }
+      return { ok: false, error: 'Վիճակահանությունը կբացվի, երբ բոլորը գրանցվեն, և կազմակերպիչը հաստատի։' }
 
     const [me] = await db
       .select()
       .from(participants)
       .where(eq(participants.email, data.email))
     if (!me || !safeEqual(me.codeHash, hashCode(data.code)))
-      return { ok: false, error: 'That email and code don’t match a registered colleague.' }
+      return { ok: false, error: 'Այս էլ. հասցեն և կոդը չեն համապատասխանում գրանցված որևէ գործընկերոջ։' }
 
     await ensureDraw()
 
@@ -212,7 +212,7 @@ export const revealRecipient = createServerFn({ method: 'POST' })
       .select({ receiverId: assignments.receiverId })
       .from(assignments)
       .where(eq(assignments.giverId, me.id))
-    if (!match) return { ok: false, error: 'No assignment found for you. Please contact the organizer.' }
+    if (!match) return { ok: false, error: 'Ձեզ համար զույգ չի գտնվել։ Խնդրում ենք դիմել կազմակերպչին։' }
 
     const [r] = await db
       .select()

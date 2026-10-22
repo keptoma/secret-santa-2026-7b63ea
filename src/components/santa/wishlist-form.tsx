@@ -48,9 +48,9 @@ export function WishlistForm({ status }: { status: EventStatus }) {
 
   function validate() {
     const next: typeof errors = {}
-    if (values.name.trim().length < 2) next.name = 'Please enter your name.'
-    if (!/^\S+@\S+\.\S+$/.test(values.email.trim())) next.email = 'Please enter a valid email address.'
-    if (values.wishlist.trim().length < 3) next.wishlist = 'Tell your Secret Santa at least one gift idea.'
+    if (values.name.trim().length < 2) next.name = 'Խնդրում ենք մուտքագրել ձեր անունը։'
+    if (!/^\S+@\S+\.\S+$/.test(values.email.trim())) next.email = 'Խնդրում ենք մուտքագրել վավեր էլ. հասցե։'
+    if (values.wishlist.trim().length < 3) next.wishlist = 'Նշեք նվերի առնվազն մեկ գաղափար ձեր Գաղտնի Ձմեռ Պապի համար։'
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -71,7 +71,7 @@ export function WishlistForm({ status }: { status: EventStatus }) {
       setValues(EMPTY)
       await router.invalidate()
     } catch {
-      setFormError('Something went wrong saving your wishlist. Please try again.')
+      setFormError('Ձեր ցանկը պահպանելիս սխալ առաջացավ։ Խնդրում ենք փորձել կրկին։')
     } finally {
       setPending(false)
     }
@@ -80,9 +80,9 @@ export function WishlistForm({ status }: { status: EventStatus }) {
   return (
     <section id="wishlist" className="scroll-mt-6 px-5 py-20">
       <div className="mx-auto max-w-content">
-        <SectionHeading eyebrow="Step 1 · Register" title="Write your wishlist">
-          Help your Secret Santa find something you'll love. Only your Santa sees your
-          wishlist — your email stays private.
+        <SectionHeading eyebrow="Քայլ 1 · Գրանցում" title="Գրեք ձեր ցանկությունները">
+          Օգնեք ձեր Գաղտնի Ձմեռ Պապին գտնել այն, ինչ ձեզ իսկապես դուր կգա։ Ձեր ցանկը
+          տեսնում է միայն նա, իսկ ձեր էլ. հասցեն մնում է գաղտնի։
         </SectionHeading>
 
         <div className="mx-auto max-w-3xl overflow-hidden rounded-[2rem] border bg-card shadow-xl shadow-pine/5">
@@ -90,37 +90,37 @@ export function WishlistForm({ status }: { status: EventStatus }) {
           {closed ? (
             <div className="flex flex-col items-center gap-3 p-10 text-center">
               <Lock className="size-10 text-primary" />
-              <h3 className="text-2xl font-bold text-pine">Registration is closed</h3>
+              <h3 className="text-2xl font-bold text-pine">Գրանցումն ավարտված է</h3>
               <p className="max-w-md text-muted-foreground">
-                All {status.total} colleagues are signed up. Head to the draw to find out who
-                you're buying for!
+                ATEEC-ի բոլոր {status.total} գործընկերները գրանցված են։ Անցեք վիճակահանությանը՝
+                իմանալու, թե ում համար եք նվեր գնելու։
               </p>
               <Button asChild className="mt-2 rounded-full">
-                <a href="#draw">Go to the draw</a>
+                <a href="#draw">Անցնել վիճակահանությանը</a>
               </Button>
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate className="grid gap-5 p-6 md:grid-cols-2 md:p-10">
-              <Field id="name" label="Your name" required error={errors.name}>
-                <Input id="name" value={values.name} onChange={set('name')} autoComplete="name" placeholder="e.g. Anna Petrosyan" aria-invalid={!!errors.name} maxLength={80} />
+              <Field id="name" label="Ձեր անունը" required error={errors.name}>
+                <Input id="name" value={values.name} onChange={set('name')} autoComplete="name" placeholder="օր.՝ Աննա Պետրոսյան" aria-invalid={!!errors.name} maxLength={80} />
               </Field>
-              <Field id="email" label="Email address" required error={errors.email} hint="For your personal code and draw notification. Never shown publicly.">
-                <Input id="email" type="email" value={values.email} onChange={set('email')} autoComplete="email" placeholder="you@company.com" aria-invalid={!!errors.email} maxLength={200} />
+              <Field id="email" label="Էլ. հասցե" required error={errors.email} hint="Անձնական կոդի և վիճակահանության ծանուցման համար։ Երբեք հրապարակային չի ցուցադրվում։">
+                <Input id="email" type="email" value={values.email} onChange={set('email')} autoComplete="email" placeholder="anun@example.com" aria-invalid={!!errors.email} maxLength={200} />
               </Field>
-              <Field id="wishlist" label="Gift ideas / wishlist" required error={errors.wishlist} wide>
-                <Textarea id="wishlist" rows={4} value={values.wishlist} onChange={set('wishlist')} placeholder="A cozy scarf, a good mystery novel, fancy hot chocolate…" aria-invalid={!!errors.wishlist} maxLength={2000} />
+              <Field id="wishlist" label="Նվերի գաղափարներ / ցանկություններ" required error={errors.wishlist} wide>
+                <Textarea id="wishlist" rows={4} value={values.wishlist} onChange={set('wishlist')} placeholder="Տաք շարֆ, լավ դետեկտիվ վեպ, համեղ տաք շոկոլադ…" aria-invalid={!!errors.wishlist} maxLength={2000} />
               </Field>
-              <Field id="links" label="Links to desired products" wide>
-                <Textarea id="links" rows={2} value={values.links} onChange={set('links')} placeholder="One link per line" maxLength={2000} />
+              <Field id="links" label="Ցանկալի ապրանքների հղումներ" wide>
+                <Textarea id="links" rows={2} value={values.links} onChange={set('links')} placeholder="Յուրաքանչյուր հղում՝ նոր տողում" maxLength={2000} />
               </Field>
-              <Field id="dislikes" label="Things I don't like or want">
-                <Textarea id="dislikes" rows={3} value={values.dislikes} onChange={set('dislikes')} placeholder="No scented candles, please!" maxLength={1000} />
+              <Field id="dislikes" label="Ինչ չեմ սիրում կամ չեմ ուզում">
+                <Textarea id="dislikes" rows={3} value={values.dislikes} onChange={set('dislikes')} placeholder="Խնդրում եմ, առանց բուրավետ մոմերի։" maxLength={1000} />
               </Field>
-              <Field id="hobbies" label="Hobbies & interests">
-                <Textarea id="hobbies" rows={3} value={values.hobbies} onChange={set('hobbies')} placeholder="Hiking, board games, baking…" maxLength={1000} />
+              <Field id="hobbies" label="Հոբբիներ և հետաքրքրություններ">
+                <Textarea id="hobbies" rows={3} value={values.hobbies} onChange={set('hobbies')} placeholder="Արշավներ, սեղանի խաղեր, թխվածքներ…" maxLength={1000} />
               </Field>
-              <Field id="sizes" label="Clothing or other sizes" wide>
-                <Input id="sizes" value={values.sizes} onChange={set('sizes')} placeholder="T-shirt M, socks 38–40, ring size 7" maxLength={500} />
+              <Field id="sizes" label="Հագուստի կամ այլ չափսեր" wide>
+                <Input id="sizes" value={values.sizes} onChange={set('sizes')} placeholder="Շապիկ՝ M, գուլպաներ՝ 38–40, մատանի՝ 17" maxLength={500} />
               </Field>
 
               <div className="md:col-span-2">
@@ -131,10 +131,10 @@ export function WishlistForm({ status }: { status: EventStatus }) {
                 )}
                 <Button type="submit" size="lg" disabled={pending} className="h-13 w-full rounded-full text-base font-bold shadow-lg shadow-primary/25">
                   {pending ? <Loader2 className="animate-spin" /> : <Gift />}
-                  Done! Submit My Wishlist
+                  Պատրաստ է։ Ուղարկել իմ ցանկը
                 </Button>
                 <p className="mt-3 text-center text-xs text-muted-foreground">
-                  One registration per colleague — duplicate names and emails are blocked.
+                  Յուրաքանչյուր գործընկեր գրանցվում է մեկ անգամ․ կրկնվող անուններն ու էլ. հասցեներն արգելափակված են։
                 </p>
               </div>
             </form>
@@ -146,12 +146,12 @@ export function WishlistForm({ status }: { status: EventStatus }) {
         <DialogContent className="rounded-3xl">
           <DialogHeader>
             <DialogTitle className="font-display text-2xl text-pine">
-              You're on the list, {success?.name}! 🎄
+              {success?.name}, դուք գրանցված եք։ 🎄
             </DialogTitle>
             <DialogDescription>
-              Here's your personal Secret Santa code. You'll need it with your email to reveal
-              your recipient once the draw opens.
-              {success?.emailed ? ' We also emailed it to you.' : ' Please save it somewhere safe.'}
+              Ահա ձեր անձնական Գաղտնի Ձմեռ Պապի կոդը։ Այն էլ. հասցեի հետ միասին պետք կգա
+              ձեր ստացողին իմանալու համար, երբ վիճակահանությունը բացվի։
+              {success?.emailed ? ' Կոդն ուղարկել ենք նաև ձեր էլ. հասցեին։' : ' Խնդրում ենք պահել այն ապահով տեղում։'}
             </DialogDescription>
           </DialogHeader>
           <div className="my-2 rounded-2xl border-2 border-dashed border-primary/40 bg-muted p-5 text-center">
@@ -165,14 +165,14 @@ export function WishlistForm({ status }: { status: EventStatus }) {
                 if (!success) return
                 navigator.clipboard
                   ?.writeText(success.code)
-                  .then(() => toast.success('Code copied'))
-                  .catch(() => toast.error('Could not copy — please write it down.'))
+                  .then(() => toast.success('Կոդը պատճենվեց'))
+                  .catch(() => toast.error('Չհաջողվեց պատճենել․ խնդրում ենք գրի առնել։'))
               }}
             >
-              <Copy /> Copy code
+              <Copy /> Պատճենել կոդը
             </Button>
             <Button className="rounded-full" onClick={() => setSuccess(null)}>
-              Got it
+              Հասկանալի է
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -202,7 +202,7 @@ function Field({
     <div className={`grid gap-2 ${wide ? 'md:col-span-2' : ''}`}>
       <Label htmlFor={id} className="font-semibold text-pine">
         {label}
-        {required ? <span className="text-primary">*</span> : <span className="font-normal text-muted-foreground">(optional)</span>}
+        {required ? <span className="text-primary">*</span> : <span className="font-normal text-muted-foreground">(ըստ ցանկության)</span>}
       </Label>
       {children}
       {error ? (

@@ -16,11 +16,11 @@ const AVATAR_COLORS = ['bg-primary', 'bg-secondary', 'bg-gold text-accent-foregr
 
 function timeAgo(iso: string) {
   const mins = Math.round((Date.now() - new Date(iso).getTime()) / 60000)
-  if (mins < 1) return 'just now'
-  if (mins < 60) return `${mins} min ago`
+  if (mins < 1) return 'հենց հիմա'
+  if (mins < 60) return `${mins} րոպե առաջ`
   const hours = Math.round(mins / 60)
-  if (hours < 24) return `${hours} h ago`
-  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+  if (hours < 24) return `${hours} ժամ առաջ`
+  return new Date(iso).toLocaleDateString('hy-AM', { month: 'short', day: 'numeric' })
 }
 
 export function CommentsSection({ comments }: { comments: CommentItem[] }) {
@@ -32,7 +32,7 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim() || !message.trim()) {
-      toast.error('Please add your name and a message.')
+      toast.error('Խնդրում ենք նշել ձեր անունը և հաղորդագրությունը։')
       return
     }
     setPending(true)
@@ -43,10 +43,10 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
         return
       }
       setMessage('')
-      toast.success('Message posted! 🎄')
+      toast.success('Հաղորդագրությունը հրապարակված է։ 🎄')
       await router.invalidate()
     } catch {
-      toast.error('Could not post your message. Please try again.')
+      toast.error('Չհաջողվեց հրապարակել հաղորդագրությունը։ Խնդրում ենք փորձել կրկին։')
     } finally {
       setPending(false)
     }
@@ -55,26 +55,26 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
   return (
     <section id="comments" className="scroll-mt-6 px-5 py-20">
       <div className="mx-auto max-w-content">
-        <SectionHeading eyebrow="Festive wall" title="Comments & cheer">
-          Leave a suggestion, a budget idea, or just some holiday cheer for the team.
+        <SectionHeading eyebrow="Տոնական պատ" title="Մեկնաբանություններ և մաղթանքներ">
+          Թողեք առաջարկ, բյուջեի գաղափար կամ պարզապես տոնական մաղթանք ATEEC-ի թիմի համար։
         </SectionHeading>
 
         <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
           <form onSubmit={onSubmit} className="h-fit rounded-[2rem] border bg-card p-6 shadow-sm md:p-8 lg:sticky lg:top-6">
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="comment-name" className="font-semibold text-pine">Your name</Label>
-                <Input id="comment-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} placeholder="Anna" />
+                <Label htmlFor="comment-name" className="font-semibold text-pine">Ձեր անունը</Label>
+                <Input id="comment-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={60} placeholder="Աննա" />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="comment-message" className="font-semibold text-pine">Message</Label>
+                <Label htmlFor="comment-message" className="font-semibold text-pine">Հաղորդագրություն</Label>
                 <Textarea
                   id="comment-message"
                   rows={4}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   maxLength={500}
-                  placeholder="Can we set a €25 budget? 🎁"
+                  placeholder="Միայն թե բաժակ չլինի 😂🎁"
                 />
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1">
@@ -84,7 +84,7 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
                         type="button"
                         onClick={() => setMessage((m) => (m + ' ' + emoji).trimStart())}
                         className="grid size-8 place-items-center rounded-full text-lg transition hover:scale-110 hover:bg-muted"
-                        aria-label={`Add ${emoji}`}
+                        aria-label={`Ավելացնել ${emoji}`}
                       >
                         {emoji}
                       </button>
@@ -95,7 +95,7 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
               </div>
               <Button type="submit" disabled={pending} className="rounded-full font-bold">
                 {pending ? <Loader2 className="animate-spin" /> : <Send />}
-                Post message
+                Հրապարակել
               </Button>
             </div>
           </form>
@@ -104,7 +104,7 @@ export function CommentsSection({ comments }: { comments: CommentItem[] }) {
             {comments.length === 0 ? (
               <div className="flex flex-col items-center gap-3 rounded-[2rem] border-2 border-dashed p-12 text-center text-muted-foreground">
                 <MessageCircleHeart className="size-10 text-primary" />
-                <p className="font-medium">No messages yet — be the first to spread some cheer!</p>
+                <p className="font-medium">Դեռ հաղորդագրություններ չկան․ եղեք առաջինը, ով տոնական տրամադրություն կտարածի։</p>
               </div>
             ) : (
               <ul className="grid gap-4">

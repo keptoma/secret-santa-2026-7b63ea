@@ -1,5 +1,5 @@
 // Shared event settings, safe to import from client and server code.
-export const EVENT_NAME = 'Secret Santa 2026'
+export const EVENT_NAME = 'ATEEC · Գաղտնի Ձմեռ Պապ 2026'
 export const TOTAL_PARTICIPANTS = 16
 
 export type EventStatus = {
