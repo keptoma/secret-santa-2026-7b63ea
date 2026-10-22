@@ -114,7 +114,13 @@ export const registerParticipant = createServerFn({ method: 'POST' })
     const emailed = await sendEmail(
       data.email,
       `You're in! ${EVENT_NAME} 🎄`,
-      `Hi ${data.name},\n\nYour wishlist for ${EVENT_NAME} is saved.\n\nYour personal Secret Santa code is: ${code}\n\nKeep it safe — you'll need it with your email to reveal who you're buying a gift for once the draw opens.\n\nHo ho ho! 🎁`,
+      [
+        `Քո ցանկությունների ցանկը հաջողությամբ հասել է էլֆերի գաղտնի շտաբ։ 🧝‍♂️✅`,
+        `Գրանցումն ավարտված է։ Այժմ մնում է սպասել վիճակահանությանը և հուսալ, որ քո գաղտնի Ձմեռ պապը մտքեր կարդալու ունակություն ունի։ 😂🎁`,
+        `Հիշի՛ր՝ գաղտնիքները չենք բացահայտում, գործընկերներին չենք կասկածում, իսկ նվերների հետ կապված կասկածելի վարքագիծը խստիվ խրախուսվում է։ 👀🤫`,
+        ``,
+        `Code: ${code}`,
+      ].join('\n'),
     )
     return { ok: true, data: { code, emailed } }
   })
