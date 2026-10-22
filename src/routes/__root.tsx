@@ -6,8 +6,8 @@ import { NotFoundPage } from '@/components/error-pages'
 
 import '../styles.css'
 
-const siteName = 'Secret Santa 2026'
-const siteDescription = 'Our office Secret Santa 2026 — share your wishlist, follow the sign-ups, and draw your gift recipient.'
+const siteName = 'ATEEC · Գաղտնի Ձմեռ Պապ 2026'
+const siteDescription = 'ATEEC-ի Գաղտնի Ձմեռ Պապ 2026․ կիսվեք ձեր ցանկություններով, հետևեք գրանցումներին և իմացեք, թե ում եք նվեր տալու։'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -50,7 +50,7 @@ export const Route = createRootRoute({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="hy">
       <head>
         <HeadContent />
       </head>

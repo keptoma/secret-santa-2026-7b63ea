@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=DM+Sans:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=DM+Sans:wght@400;500;700&family=Noto+Sans+Armenian:wght@400;500;700;900&family=Noto+Serif+Armenian:wght@500;700;900&display=swap');
 @import 'tailwindcss' source('../');
 
 @import 'tw-animate-css';
@@ -18,8 +18,8 @@ code {
 }
 
 :root {
-  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-heading: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', 'Noto Sans Armenian', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Fraunces', 'Noto Serif Armenian', Georgia, serif;
   --content-width: 72rem;
   --reading-width: 42rem;
   --background: oklch(0.965 0.018 85);
