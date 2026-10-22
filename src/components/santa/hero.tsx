@@ -50,8 +50,8 @@ export function Hero({ status }: { status: EventStatus }) {
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-lg text-lg text-secondary-foreground/80 md:mx-0">
-            Share your wishlist, watch the sign-ups roll in, then draw the colleague
-            you'll surprise this Christmas. No peeking — every match stays secret.
+            Գրեք ձեր ցանկությունները, հետևեք՝ ով է արդեն պատրաստվել տոնական քաոսին, 
+            իսկ հետո պարզեք՝ ում եք ուրախացնելու այս տարի։
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
             <Button asChild size="lg" className="h-12 rounded-full px-7 text-base shadow-lg shadow-black/20">
