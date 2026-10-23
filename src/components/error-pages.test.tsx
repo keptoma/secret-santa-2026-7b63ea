@@ -27,9 +27,9 @@ describe('error pages', () => {
     render(<RouterProvider router={router} />)
 
     expect(
-      await screen.findByRole('heading', { name: 'Page not found' }),
+      await screen.findByRole('heading', { name: 'Էջը չի գտնվել' }),
     ).toBeVisible()
-    await userEvent.setup().click(screen.getByRole('link', { name: 'Go home' }))
+    await userEvent.setup().click(screen.getByRole('link', { name: 'Գլխավոր էջ' }))
     expect(await screen.findByRole('heading', { name: 'Home' })).toBeVisible()
   })
 
@@ -55,12 +55,12 @@ describe('error pages', () => {
     render(<RouterProvider router={router} />)
 
     expect(
-      await screen.findByRole('heading', { name: 'This page couldn’t load' }),
+      await screen.findByRole('heading', { name: 'Այս էջը չբեռնվեց' }),
     ).toBeVisible()
     expect(
       screen.queryByText('Internal credentials must not appear'),
     ).not.toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: 'Try again' }))
+    await user.click(screen.getByRole('button', { name: 'Կրկին փորձել' }))
     expect(await screen.findByRole('heading', { name: 'Loaded' })).toBeVisible()
     expect(loader).toHaveBeenCalledTimes(2)
   })

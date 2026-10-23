@@ -28,9 +28,11 @@ function Home() {
       </main>
       <footer className="bg-pine-deep px-5 py-10 text-center text-sm text-secondary-foreground/70">
         <p className="font-display text-lg text-secondary-foreground">
-          Merry Christmas & happy gifting! 🎄
+          Շնորհավոր Ամանոր և Սուրբ Ծնունդ։ Թող նվիրելը ուրախություն պարգևի։ 🎄
         </p>
-        <p className="mt-1">Secret Santa 2026 · Your wishlist and match are only ever shown to you.</p>
+        <p className="mt-1">
+          Գաղտնի Ձմեռ Պապիկ 2026 · Ձեր ցանկությունների ցուցակը և ձեր զույգը ցուցադրվում են միայն ձեզ։
+        </p>
       </footer>
     </div>
   )

@@ -11,8 +11,8 @@ export function ProgressSection({ status }: { status: EventStatus }) {
   return (
     <section id="progress" className="scroll-mt-6 bg-muted/60 px-5 py-20">
       <div className="mx-auto max-w-content">
-        <SectionHeading eyebrow="Registration progress" title="Who's on the nice list?">
-          Each ornament lights up when a colleague submits their wishlist.
+        <SectionHeading eyebrow="Գրանցման ընթացք" title="Ովքե՞ր են բարի երեխաների ցուցակում">
+          Յուրաքանչյուր զարդ լուսավորվում է, երբ գործընկերն ուղարկում է իր ցանկությունների ցուցակը։
         </SectionHeading>
 
         <div className="mx-auto max-w-3xl rounded-[2rem] border bg-card p-6 shadow-sm md:p-10">
@@ -23,30 +23,30 @@ export function ProgressSection({ status }: { status: EventStatus }) {
                 <span className="text-2xl text-muted-foreground md:text-3xl"> / {status.total}</span>
               </p>
               <p className="mt-1 font-medium text-pine">
-                {status.registered === 1 ? '1 person registered' : `${status.registered} people registered`}
+                {`${status.registered} մարդ գրանցվել է`}
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-2 text-sm">
-              <Stat icon={<Users className="size-4" />} label={`${status.total} participants`} />
+              <Stat icon={<Users className="size-4" />} label={`${status.total} մասնակից`} />
               <Stat
                 icon={status.registrationClosed ? <Lock className="size-4" /> : <CheckCircle2 className="size-4" />}
-                label={status.registrationClosed ? 'Registration closed' : 'Registration open'}
+                label={status.registrationClosed ? 'Գրանցումը փակ է' : 'Գրանցումը բաց է'}
               />
             </div>
           </div>
 
           <div className="mt-8">
             <div className="mb-2 flex justify-between text-sm font-medium">
-              <span className="text-pine">{pct}% complete</span>
+              <span className="text-pine">{pct}% ավարտված</span>
               <span className="text-muted-foreground">
                 {status.total - status.registered > 0
-                  ? `${status.total - status.registered} to go`
-                  : 'Everyone is in 🎉'}
+                  ? `մնացել է ${status.total - status.registered}`
+                  : 'Բոլորը գրանցված են 🎉'}
               </span>
             </div>
             <Progress
               value={pct}
-              aria-label="Registration progress"
+              aria-label="Գրանցման ընթացք"
               className="h-4 bg-secondary/15 [&>[data-slot=progress-indicator]]:bg-linear-to-r [&>[data-slot=progress-indicator]]:from-secondary [&>[data-slot=progress-indicator]]:to-primary"
             />
           </div>
@@ -64,7 +64,7 @@ export function ProgressSection({ status }: { status: EventStatus }) {
                   <span className="absolute -top-1.5 h-2 w-3 rounded-sm bg-gold/80" />
                   {name ? name[0].toUpperCase() : '·'}
                 </span>
-                <span className="w-full truncate text-xs text-muted-foreground">{name ?? 'Open'}</span>
+                <span className="w-full truncate text-xs text-muted-foreground">{name ?? 'Ազատ'}</span>
               </li>
             ))}
           </ul>

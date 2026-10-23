@@ -11,13 +11,13 @@ export function NotFoundPage() {
       <div className="max-w-md space-y-6 text-center">
         <p className="text-sm font-medium text-muted-foreground">404</p>
         <h1 className="text-3xl font-semibold tracking-tight">
-          Page not found
+          Էջը չի գտնվել
         </h1>
         <p className="text-muted-foreground">
-          This page doesn’t exist. Check the address or return to the home page.
+          Այս էջը գոյություն չունի։ Ստուգեք հասցեն կամ վերադարձեք գլխավոր էջ։
         </p>
         <Button asChild>
-          <Link to="/">Go home</Link>
+          <Link to="/">Գլխավոր էջ</Link>
         </Button>
       </div>
     </main>
@@ -31,10 +31,10 @@ export function RouteErrorPage({ reset }: ErrorComponentProps) {
     <main className="grid min-h-svh place-items-center px-6 py-16">
       <div className="max-w-md space-y-6 text-center">
         <h1 className="text-3xl font-semibold tracking-tight">
-          This page couldn’t load
+          Այս էջը չբեռնվեց
         </h1>
         <p role="alert" className="text-muted-foreground">
-          Please try again, or return to the home page.
+          Խնդրում ենք կրկին փորձել կամ վերադառնալ գլխավոր էջ։
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Button
@@ -43,10 +43,10 @@ export function RouteErrorPage({ reset }: ErrorComponentProps) {
               reset()
             }}
           >
-            Try again
+            Կրկին փորձել
           </Button>
           <Button variant="outline" asChild>
-            <a href="/">Go home</a>
+            <a href="/">Գլխավոր էջ</a>
           </Button>
         </div>
       </div>

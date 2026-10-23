@@ -25,20 +25,20 @@ export function DrawSection({ status }: { status: EventStatus }) {
   const [open, setOpen] = useState(false)
 
   const reason = !everyoneIn
-    ? `Waiting for ${status.total - status.registered} more ${status.total - status.registered === 1 ? 'wishlist' : 'wishlists'}.`
+    ? `Սպասվում է ևս ${status.total - status.registered} ցուցակ։`
     : !status.registrationClosed
-      ? 'Everyone is in! Waiting for the organizer to confirm registration is complete.'
+      ? 'Բոլորը գրանցված են։ Սպասվում է կազմակերպչի հաստատումը, որ գրանցումն ավարտված է։'
       : status.drawComplete
-        ? 'The draw is locked in. Enter your email and code to see your match.'
-        : 'The draw is open — the first click shuffles everyone at once.'
+        ? 'Վիճակահանությունը կայացել է։ Մուտքագրեք ձեր էլ. հասցեն և կոդը՝ ձեր զույգին տեսնելու համար։'
+        : 'Վիճակահանությունը բաց է. առաջին սեղմումը միանգամից խառնում է բոլորին։'
 
   return (
     <section id="draw" className="relative scroll-mt-6 overflow-hidden bg-pine px-5 py-20 text-secondary-foreground">
       <Snowfall />
       <div className="relative z-10 mx-auto max-w-content">
-        <SectionHeading eyebrow="Step 2 · The draw" title="Who will you surprise?" light>
-          Everyone is matched with exactly one colleague, nobody draws themselves, and once
-          the draw happens it's saved for good.
+        <SectionHeading eyebrow="Քայլ 2 · Վիճակահանություն" title="Ու՞մ եք անակնկալ անելու" light>
+          Յուրաքանչյուրին համապատասխանեցվում է ուղիղ մեկ գործընկեր, ոչ ոք իրեն չի քաշում,
+          և վիճակահանությունը կայանալուց հետո արդյունքը պահպանվում է ընդմիշտ։
         </SectionHeading>
 
         <div className="mx-auto flex max-w-xl flex-col items-center text-center">
@@ -51,7 +51,7 @@ export function DrawSection({ status }: { status: EventStatus }) {
             className="mt-10 h-16 w-full rounded-full bg-primary px-8 text-lg font-bold shadow-2xl shadow-black/30 hover:bg-primary/90 disabled:bg-secondary-foreground/15 disabled:text-secondary-foreground/70 disabled:opacity-100 sm:w-auto"
           >
             {ready ? <Gift className="size-6" /> : <Lock className="size-5" />}
-            Choose My Secret Santa Recipient 🎁
+            Ընտրել իմ Գաղտնի Ձմեռ Պապիկի ստացողին 🎁
           </Button>
           <p className="mt-4 text-sm text-secondary-foreground/75" aria-live="polite">
             {reason}
@@ -68,9 +68,9 @@ export function DrawSection({ status }: { status: EventStatus }) {
 
 function Steps({ everyoneIn, closed, drawn }: { everyoneIn: boolean; closed: boolean; drawn: boolean }) {
   const steps = [
-    { label: 'All wishlists in', done: everyoneIn },
-    { label: 'Organizer confirms', done: closed },
-    { label: 'Names drawn', done: drawn },
+    { label: 'Բոլոր ցուցակները լրացված են', done: everyoneIn },
+    { label: 'Կազմակերպիչը հաստատում է', done: closed },
+    { label: 'Անունները քաշված են', done: drawn },
   ]
   return (
     <ol className="grid w-full grid-cols-3 gap-2">
@@ -106,11 +106,11 @@ function OrganizerPanel({ status }: { status: EventStatus }) {
         toast.error(res.error)
         return
       }
-      toast.success('Registration confirmed — the draw is open! 🎅')
+      toast.success('Գրանցումը հաստատվեց․ վիճակահանությունը բաց է։ 🎅')
       setPassword('')
       await router.invalidate()
     } catch {
-      toast.error('Could not confirm registration. Please try again.')
+      toast.error('Չհաջողվեց հաստատել գրանցումը։ Խնդրում ենք կրկին փորձել։')
     } finally {
       setPending(false)
     }
@@ -119,16 +119,16 @@ function OrganizerPanel({ status }: { status: EventStatus }) {
   return (
     <details className="group mt-12 w-full rounded-2xl border border-secondary-foreground/15 bg-pine-deep/50 text-left">
       <summary className="flex cursor-pointer list-none items-center gap-2 px-5 py-4 text-sm font-semibold text-secondary-foreground/85">
-        <ShieldCheck className="size-4 text-gold" /> Organizer: confirm registration is complete
+        <ShieldCheck className="size-4 text-gold" /> Կազմակերպիչ՝ հաստատել, որ գրանցումն ավարտված է
         <span className="ml-auto transition-transform group-open:rotate-180">⌄</span>
       </summary>
       <form onSubmit={onConfirm} className="grid gap-3 px-5 pb-5">
         <p className="text-sm text-secondary-foreground/70">
-          Once all {status.total} colleagues are registered, confirm to close sign-ups and
-          unlock the draw. This can't be undone.
+          Երբ բոլոր {status.total} գործընկերները գրանցվեն, հաստատեք՝ գրանցումը փակելու և
+          վիճակահանությունը բացելու համար։ Սա հնարավոր չէ չեղարկել։
         </p>
         <Label htmlFor="organizer-password" className="text-secondary-foreground">
-          Organizer password
+          Կազմակերպչի գաղտնաբառ
         </Label>
         <div className="flex flex-col gap-2 sm:flex-row">
           <Input
@@ -141,12 +141,12 @@ function OrganizerPanel({ status }: { status: EventStatus }) {
           />
           <Button type="submit" disabled={!everyoneIn || !password || pending} className="rounded-full bg-gold text-accent-foreground hover:bg-gold/90">
             {pending && <Loader2 className="animate-spin" />}
-            Confirm & open the draw
+            Հաստատել և բացել վիճակահանությունը
           </Button>
         </div>
         {!everyoneIn && (
           <p className="text-xs text-secondary-foreground/60">
-            Available when {status.total} of {status.total} wishlists are in ({status.registered} so far).
+            Հասանելի կլինի, երբ {status.total}-ից {status.total} ցուցակը լրացված լինի (առայժմ՝ {status.registered})։
           </p>
         )}
       </form>
@@ -192,7 +192,7 @@ function RevealDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (op
       setRecipient(res.data)
       await router.invalidate()
     } catch {
-      setError('Something went wrong. Please try again.')
+      setError('Սխալ տեղի ունեցավ։ Խնդրում ենք կրկին փորձել։')
     } finally {
       setPending(false)
     }
@@ -205,34 +205,34 @@ function RevealDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (op
           <>
             <DialogHeader>
               <p className="flex items-center gap-1.5 text-xs font-bold tracking-[0.2em] text-primary uppercase">
-                <Sparkles className="size-4" /> You are Secret Santa for
+                <Sparkles className="size-4" /> Դուք Գաղտնի Ձմեռ Պապիկ եք՝
               </p>
               <DialogTitle className="font-display text-4xl font-black text-pine">{recipient.name}</DialogTitle>
-              <DialogDescription>Shh… keep it secret! Here's what they wished for.</DialogDescription>
+              <DialogDescription>Շշշ… գաղտնի պահեք։ Ահա, թե ինչ է նա ցանկանում։</DialogDescription>
             </DialogHeader>
             <dl className="grid gap-4 text-sm">
-              <Detail label="Wishlist" value={recipient.wishlist} />
-              <Detail label="Links" value={recipient.links} links />
-              <Detail label="Please avoid" value={recipient.dislikes} />
-              <Detail label="Hobbies & interests" value={recipient.hobbies} />
-              <Detail label="Sizes" value={recipient.sizes} />
+              <Detail label="Ցանկությունների ցուցակ" value={recipient.wishlist} />
+              <Detail label="Հղումներ" value={recipient.links} links />
+              <Detail label="Խնդրում ենք խուսափել" value={recipient.dislikes} />
+              <Detail label="Հոբբիներ և հետաքրքրություններ" value={recipient.hobbies} />
+              <Detail label="Չափսեր" value={recipient.sizes} />
             </dl>
           </>
         ) : (
           <form onSubmit={onReveal} className="grid gap-4">
             <DialogHeader>
-              <DialogTitle className="font-display text-2xl text-pine">Reveal your recipient</DialogTitle>
+              <DialogTitle className="font-display text-2xl text-pine">Բացահայտեք ձեր ստացողին</DialogTitle>
               <DialogDescription>
-                Enter the email you registered with and your personal code. Only you can see
-                your match.
+                Մուտքագրեք գրանցման ժամանակ օգտագործած էլ. հասցեն և ձեր անձնական կոդը։
+                Ձեր զույգին տեսնում եք միայն դուք։
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-2">
-              <Label htmlFor="reveal-email">Email address</Label>
+              <Label htmlFor="reveal-email">Էլ. հասցե</Label>
               <Input id="reveal-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="reveal-code">Personal code</Label>
+              <Label htmlFor="reveal-code">Անձնական կոդ</Label>
               <Input
                 id="reveal-code"
                 value={code}
@@ -249,7 +249,7 @@ function RevealDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (op
             )}
             <Button type="submit" size="lg" disabled={pending} className="rounded-full font-bold">
               {pending ? <Loader2 className="animate-spin" /> : <KeyRound />}
-              Reveal my match
+              Բացահայտել իմ զույգին
             </Button>
           </form>
         )}
