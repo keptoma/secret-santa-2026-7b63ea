@@ -5,7 +5,7 @@ import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 const config = defineConfig({
-  base: 'secret-santa-2026-7b63ea',
+  base: '/secret-santa-2026-7b63ea/',
   resolve: {
     tsconfigPaths: true,
   },
