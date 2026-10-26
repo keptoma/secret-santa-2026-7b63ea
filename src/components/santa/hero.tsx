@@ -5,10 +5,10 @@ import type { EventStatus } from '@/lib/event'
 import { Snowfall } from './snowfall'
 
 const NAV = [
-  { href: '#wishlist', label: 'Wishlist' },
-  { href: '#progress', label: 'Progress' },
-  { href: '#draw', label: 'The draw' },
-  { href: '#comments', label: 'Comments' },
+  { href: '#wishlist', label: 'Ցանկություններ' },
+  { href: '#progress', label: 'Առաջընթաց' },
+  { href: '#draw', label: 'Վիճակահանություն' },
+  { href: '#comments', label: 'Մեկնաբանություններ' },
 ]
 
 export function Hero({ status }: { status: EventStatus }) {
@@ -21,7 +21,7 @@ export function Hero({ status }: { status: EventStatus }) {
           <span className="grid size-9 place-items-center rounded-full bg-primary text-primary-foreground">
             <Gift className="size-5" />
           </span>
-          Secret Santa <span className="text-gold">2026</span>
+          ATEEC <span className="text-gold">2026</span>
         </a>
         <ul className="hidden gap-7 text-sm font-medium text-secondary-foreground/80 md:flex">
           {NAV.map((n) => (
@@ -40,10 +40,10 @@ export function Hero({ status }: { status: EventStatus }) {
       >
         <div className="text-center md:text-left">
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-pine-deep/60 px-4 py-1.5 text-xs font-bold tracking-[0.2em] text-gold uppercase">
-            ✦ The office gift exchange ✦
+            ✦ ATEEC-ի նվերների փոխանակում ✦
           </p>
-          <h1 className="text-5xl leading-[0.95] font-black tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-            Secret Santa
+          <h1 className="text-5xl leading-[1.05] font-black tracking-tight sm:text-6xl md:text-6xl lg:text-7xl">
+            Գաղտնի Ձմեռ Պապ
             <span className="block text-primary-foreground">
               <span className="text-gold">20</span>
               <span className="text-[oklch(0.68_0.19_25)]">26</span>
@@ -56,7 +56,7 @@ export function Hero({ status }: { status: EventStatus }) {
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row md:justify-start">
             <Button asChild size="lg" className="h-12 rounded-full px-7 text-base shadow-lg shadow-black/20">
               <a href="#wishlist">
-                <PenLine /> Write my wishlist
+                <PenLine /> Գրել իմ ցանկը
               </a>
             </Button>
             <Button
@@ -66,13 +66,13 @@ export function Hero({ status }: { status: EventStatus }) {
               className="h-12 rounded-full border-secondary-foreground/30 bg-transparent px-7 text-base text-secondary-foreground hover:bg-secondary-foreground/10 hover:text-secondary-foreground"
             >
               <a href="#draw">
-                <Gift /> Go to the draw
+                <Gift /> Անցնել վիճակահանությանը
               </a>
             </Button>
           </div>
           <p className="mt-6 text-sm text-secondary-foreground/65">
-            {status.registered} of {status.total} colleagues signed up
-            {spotsLeft > 0 ? ` · ${spotsLeft} spots left` : ' · everyone is in!'}
+            Գրանցվել է {status.registered} / {status.total} գործընկեր
+            {spotsLeft > 0 ? ` · մնաց ${spotsLeft} տեղ` : ' · բոլորը գրանցված են։'}
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export function Hero({ status }: { status: EventStatus }) {
             src="/.netlify/images?url=/img/gifts.png&w=720&fm=webp"
             srcSet="/.netlify/images?url=/img/gifts.png&w=420&fm=webp 420w, /.netlify/images?url=/img/gifts.png&w=720&fm=webp 720w"
             sizes="(min-width: 768px) 28rem, 85vw"
-            alt="A stack of wrapped Christmas gifts in red, green and cream with gold bows"
+            alt="Կարմիր, կանաչ և կրեմագույն փաթեթավորված տոնական նվերներ՝ ոսկեգույն ժապավեններով"
             width={720}
             height={720}
             className="relative aspect-square w-full rounded-[2.5rem] border-4 border-gold/30 object-cover shadow-2xl shadow-black/40 md:rotate-2"
