@@ -38,7 +38,15 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build website
-        run: pnpm build
+        run: |
+          echo "Starting build..."
+          node --version
+          pnpm --version
+          pnpm build 2>&1 || {
+            echo "Build failed. Checking available files..."
+            ls -la
+            exit 1
+          }
 
       - name: Upload website
         uses: actions/upload-pages-artifact@v3
